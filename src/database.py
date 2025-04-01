@@ -72,6 +72,8 @@ class Database:
             SELECT eid FROM events WHERE event_name = ?
         ''', (event_name,))
         return self.cursor.fetchone()[0]
+    
+    ### INSERT QUERIES ###
 
     def addStudent(self, class_name, class_number, std_name, category):
         """
@@ -109,6 +111,8 @@ class Database:
         ''', (event_name,))
         self.conn.commit()
         return self.cursor.lastrowid
+    
+    ### GET QUERIES ###
 
     def getTotalNumberOfStudents(self):
         """
@@ -330,3 +334,50 @@ class Database:
             SELECT event_name FROM events
         ''')
         return self.cursor.fetchall()
+    
+    ### REMOVE QUARIES ###
+
+    def removeStudent(self, sid):
+        """
+        Remove a student from the database
+        """
+        self.cursor.execute('''
+            DELETE FROM students WHERE sid = ?
+        ''', (sid,))
+        self.conn.commit()
+
+    def removeEvent(self, eid):
+        """
+        Remove an event from the database
+        """
+        self.cursor.execute('''
+            DELETE FROM events WHERE eid = ?
+        ''', (eid,))
+        self.conn.commit()
+
+    def removeRecord(self, rid):
+        """
+        Remove a record from the database
+        """
+        self.cursor.execute('''
+            DELETE FROM records WHERE rid = ?
+        ''', (rid,))
+        self.conn.commit()
+
+    def removeRecordByEid(self, eid):
+        """
+        Remove all records for an event from the database
+        """
+        self.cursor.execute('''
+            DELETE FROM records WHERE eid = ?
+        ''', (eid,))
+        self.conn.commit()
+
+    def removeRecordBySid(self, sid):
+        """
+        Remove all records for a student from the database
+        """
+        self.cursor.execute('''
+            DELETE FROM records WHERE sid = ?
+        ''', (sid,))
+        self.conn.commit()
