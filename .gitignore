@@ -1,0 +1,7 @@
+database.db
+LSG demo_name.csv
+LSG demo8.csv
+LSG_test_students.csv
+LKM.spec
+build/*
+dist/*
