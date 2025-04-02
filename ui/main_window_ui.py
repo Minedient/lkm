@@ -68,7 +68,7 @@ class Ui_MainWindow(object):
         self.studentParticipatesByEventButton = QPushButton(self.frame)
         self.studentParticipatesByEventButton.setObjectName(u"studentParticipatesByEventButton")
 
-        self.gridLayout_2.addWidget(self.studentParticipatesByEventButton, 6, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.studentParticipatesByEventButton, 7, 1, 1, 1)
 
         self.label_3 = QLabel(self.frame)
         self.label_3.setObjectName(u"label_3")
@@ -85,31 +85,36 @@ class Ui_MainWindow(object):
         self.line.setFrameShape(QFrame.Shape.HLine)
         self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
-        self.gridLayout_2.addWidget(self.line, 3, 0, 1, 2)
+        self.gridLayout_2.addWidget(self.line, 4, 0, 1, 2)
 
         self.label_5 = QLabel(self.frame)
         self.label_5.setObjectName(u"label_5")
 
-        self.gridLayout_2.addWidget(self.label_5, 5, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_5, 6, 0, 1, 1)
 
         self.label_6 = QLabel(self.frame)
         self.label_6.setObjectName(u"label_6")
 
-        self.gridLayout_2.addWidget(self.label_6, 6, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_6, 7, 0, 1, 1)
 
         self.label_4 = QLabel(self.frame)
         self.label_4.setObjectName(u"label_4")
 
         self.gridLayout_2.addWidget(self.label_4, 1, 0, 1, 1)
 
+        self.studentEventTableWithCategoryAndNameButton = QPushButton(self.frame)
+        self.studentEventTableWithCategoryAndNameButton.setObjectName(u"studentEventTableWithCategoryAndNameButton")
+
+        self.gridLayout_2.addWidget(self.studentEventTableWithCategoryAndNameButton, 9, 1, 1, 1)
+
         self.studentParticipatesButton = QPushButton(self.frame)
         self.studentParticipatesButton.setObjectName(u"studentParticipatesButton")
 
-        self.gridLayout_2.addWidget(self.studentParticipatesButton, 5, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.studentParticipatesButton, 6, 1, 1, 1)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.gridLayout_2.addItem(self.verticalSpacer, 9, 0, 1, 1)
+        self.gridLayout_2.addItem(self.verticalSpacer, 10, 0, 1, 1)
 
         self.manualEventInfoButton = QPushButton(self.frame)
         self.manualEventInfoButton.setObjectName(u"manualEventInfoButton")
@@ -119,34 +124,39 @@ class Ui_MainWindow(object):
         self.studentEventTableWithCategoryButton = QPushButton(self.frame)
         self.studentEventTableWithCategoryButton.setObjectName(u"studentEventTableWithCategoryButton")
 
-        self.gridLayout_2.addWidget(self.studentEventTableWithCategoryButton, 7, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.studentEventTableWithCategoryButton, 8, 1, 1, 1)
+
+        self.label_8 = QLabel(self.frame)
+        self.label_8.setObjectName(u"label_8")
+
+        self.gridLayout_2.addWidget(self.label_8, 9, 0, 1, 1)
 
         self.label_2 = QLabel(self.frame)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setFont(font)
         self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.gridLayout_2.addWidget(self.label_2, 4, 0, 1, 2)
+        self.gridLayout_2.addWidget(self.label_2, 5, 0, 1, 2)
 
         self.label = QLabel(self.frame)
         self.label.setObjectName(u"label")
 
         self.gridLayout_2.addWidget(self.label, 2, 0, 1, 1)
 
-        self.studentEventTableWithCategoryAndNameButton = QPushButton(self.frame)
-        self.studentEventTableWithCategoryAndNameButton.setObjectName(u"studentEventTableWithCategoryAndNameButton")
-
-        self.gridLayout_2.addWidget(self.studentEventTableWithCategoryAndNameButton, 8, 1, 1, 1)
-
         self.label_7 = QLabel(self.frame)
         self.label_7.setObjectName(u"label_7")
 
-        self.gridLayout_2.addWidget(self.label_7, 7, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_7, 8, 0, 1, 1)
 
-        self.label_8 = QLabel(self.frame)
-        self.label_8.setObjectName(u"label_8")
+        self.manualEditInfoButton = QPushButton(self.frame)
+        self.manualEditInfoButton.setObjectName(u"manualEditInfoButton")
 
-        self.gridLayout_2.addWidget(self.label_8, 8, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.manualEditInfoButton, 3, 1, 1, 1)
+
+        self.label_9 = QLabel(self.frame)
+        self.label_9.setObjectName(u"label_9")
+
+        self.gridLayout_2.addWidget(self.label_9, 3, 0, 1, 1)
 
 
         self.gridLayout.addWidget(self.frame, 0, 0, 2, 1)
@@ -189,14 +199,16 @@ class Ui_MainWindow(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u5b78\u751f\u53c3\u8207\u6b21\u6578", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u5b78\u751f\u53c3\u8207\u6d3b\u52d5\u540d\u7a31", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u5b78\u751f\u8cc7\u6599", None))
+        self.studentEventTableWithCategoryAndNameButton.setText(QCoreApplication.translate("MainWindow", u"Click", None))
         self.studentParticipatesButton.setText(QCoreApplication.translate("MainWindow", u"Click", None))
         self.manualEventInfoButton.setText(QCoreApplication.translate("MainWindow", u"Click", None))
         self.studentEventTableWithCategoryButton.setText(QCoreApplication.translate("MainWindow", u"Click", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u6d3b\u52d5\u51fa\u5e2d\u5b78\u751f\u59d3\u540d", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u8cc7\u6599\u8655\u7406", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u6d3b\u52d5\u8cc7\u6599", None))
-        self.studentEventTableWithCategoryAndNameButton.setText(QCoreApplication.translate("MainWindow", u"Click", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u6d3b\u52d5\u51fa\u5e2d\u4eba\u6578", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u6d3b\u52d5\u51fa\u5e2d\u5b78\u751f\u59d3\u540d", None))
+        self.manualEditInfoButton.setText(QCoreApplication.translate("MainWindow", u"Click", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"\u66f4\u6539\u8cc7\u6599", None))
         self.menuAbout.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
     # retranslateUi
 

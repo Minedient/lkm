@@ -3,14 +3,16 @@ import time
 from src.database import Database
 from src.observer import Observer, Announcer
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidgetItem, QTableWidget, QHeaderView, QFileDialog
-from ui.ui_main_window import Ui_MainWindow
-from ui.ui_mdi_tableWidget import Ui_MDITableWidget
+from ui.main_window_ui import Ui_MainWindow
+from ui.mdi_tableWidget_ui import Ui_MDITableWidget
 from ui.student_infoDialog_ui import Ui_StudentInfoInputDialog
 from ui.ui_event_infoDialog import Ui_EventInfoInputDialog
+from ui.table_editDialog_ui import Ui_TableEditDialog
 from PySide6.QtWidgets import QMessageBox
 import sys
 import csv
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QComboBox, QPushButton, QLabel
+from PySide6.QtCore import Qt
 
 db:Database = None
 header = None
@@ -166,9 +168,8 @@ class MDITableWidget(QWidget, Ui_MDITableWidget):
         if file_name:
             with open(file_name, 'w', newline='', encoding='utf-8') as csvfile:
                 # Write header
-                header = [self.tableWidget.horizontalHeaderItem(i).text() for i in range(self.tableWidget.columnCount())]
                 writer = csv.writer(csvfile)
-                writer.writerow(header)
+                writer.writerow([self.tableWidget.horizontalHeaderItem(i).text() for i in range(self.tableWidget.columnCount())])
                 # Write data
                 writer.writerows([
                     [self.tableWidget.item(i, j).text() if self.tableWidget.item(i, j) else '' for j in range(self.tableWidget.columnCount())]
@@ -185,6 +186,52 @@ class FixedMDITableWidget(MDITableWidget):
 
     def closeEvent(self, event):
         event.ignore()  # Ignore the close event to prevent closing the window
+
+class DataEditDialog(QDialog, Ui_TableEditDialog):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        self.setWindowTitle("Data Editor")
+        self.setWindowIcon(self.windowIcon())
+        self.setFixedSize(640, 480)
+
+        self.setTableData(self.studentInfoTable, ['班別', '學號', '姓名', '經濟情況'], db.getAllStudents())
+        self.setTableData(self.eventInfoTable, ['活動名稱'], db.getAllEvents())
+
+        self.studentInfoTable.itemSelectionChanged.connect(self.printSelectedRows)
+        
+    def printSelectedRows(self):
+        selected_rows = self.studentInfoTable.selectionModel().selectedRows()
+        for row in selected_rows:
+            row_data = [
+            self.studentInfoTable.item(row.row(), col).text()
+            for col in range(self.studentInfoTable.columnCount())
+            ]
+            print(row_data)
+
+    def setTableData(self, table: QTableWidget, horizontal_header, data):
+        table.setColumnCount(len(horizontal_header))
+        table.setRowCount(len(data))
+        table.setHorizontalHeaderLabels(horizontal_header)
+
+        for i, row in enumerate(data):
+            for j, item in enumerate(row):
+                table.setItem(i, j, QTableWidgetItem(str(item)))
+
+        table.setSortingEnabled(True)
+        table.setAlternatingRowColors(True)
+        table.setShowGrid(True)
+        table.resizeColumnsToContents()
+        table.resizeRowsToContents()
+        table.horizontalHeader().setStretchLastSection(True)
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+    def accept(self):
+        # Save the data to the database
+        pass
+
+    def reject(self):
+        self.close()
 
 ### Competiblity class ###
 class MainWindowMeta(type(QMainWindow), type(Observer)):
@@ -204,6 +251,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, Observer, metaclass=MainWindowMeta)
         ### Control Panel ###
         self.manualStudentInfoButton.clicked.connect(lambda: self.studentInfoWidget.show())
         self.manualEventInfoButton.clicked.connect(lambda: self.eventInfoWidget.show())
+        self.manualEditInfoButton.clicked.connect(self.dataEditor)
 
         self.studentParticipatesButton.clicked.connect(self.studentParticipates)
         self.studentParticipatesByEventButton.clicked.connect(self.studentParticipatesByEvents)
@@ -235,13 +283,16 @@ class MainWindow(QMainWindow, Ui_MainWindow, Observer, metaclass=MainWindowMeta)
         self.recordsSubWindow.setWindowTitle("學生活動紀錄-總數(所有經濟情況)")
         self.recordsSubWindow.setTableData(['活動名稱', '人數'], db.getStudentEventTable())
         self.recordsSubWindow.show()
+    
+    def dataEditor(self):
+        self.tableEditDialog = DataEditDialog()
+        self.tableEditDialog.show()
 
     def studentEventTableWithCategory(self):
         cat = self.categoryPicker() # Show the dialog first
         if cat == None:
             return
         
-        print(cat)
         self.studentEventTableWithCategorySubWindow = MDITableWidget()
         self.mdiArea.addSubWindow(self.studentEventTableWithCategorySubWindow)
         self.studentEventTableWithCategorySubWindow.setWindowTitle("活動紀錄-總數(經濟情況-" + categoryMap[cat] + ")")
