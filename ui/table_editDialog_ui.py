@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'table_editDialog.ui'
+## Form generated from reading UI file 'table_editDialogqFXuMW.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.2
+## Created by: Qt User Interface Compiler version 6.8.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -35,6 +35,7 @@ class Ui_TableEditDialog(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.studentInfoTable = QTableWidget(self.tab)
         self.studentInfoTable.setObjectName(u"studentInfoTable")
+        self.studentInfoTable.setEditTriggers(QAbstractItemView.EditTrigger.DoubleClicked)
         self.studentInfoTable.setSelectionMode(QAbstractItemView.SelectionMode.MultiSelection)
         self.studentInfoTable.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
 
@@ -52,6 +53,7 @@ class Ui_TableEditDialog(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.eventInfoTable = QTableWidget(self.tab_2)
         self.eventInfoTable.setObjectName(u"eventInfoTable")
+        self.eventInfoTable.setEditTriggers(QAbstractItemView.EditTrigger.DoubleClicked)
         self.eventInfoTable.setSelectionMode(QAbstractItemView.SelectionMode.MultiSelection)
         self.eventInfoTable.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
 
@@ -78,7 +80,7 @@ class Ui_TableEditDialog(object):
         self.buttonBox.accepted.connect(TableEditDialog.accept)
         self.buttonBox.rejected.connect(TableEditDialog.reject)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(TableEditDialog)

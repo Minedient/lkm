@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import time
+from src.modification_history import HistoryContainer, History
 from src.database import Database
 from src.observer import Observer, Announcer
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidgetItem, QTableWidget, QHeaderView, QFileDialog
@@ -198,16 +199,31 @@ class DataEditDialog(QDialog, Ui_TableEditDialog):
         self.setTableData(self.studentInfoTable, ['班別', '學號', '姓名', '經濟情況'], db.getAllStudents())
         self.setTableData(self.eventInfoTable, ['活動名稱'], db.getAllEvents())
 
-        self.studentInfoTable.itemSelectionChanged.connect(self.printSelectedRows)
+        self.keyPressEvent = self.keyPressEventHandler
+
+        self.historyContainer = HistoryContainer()
         
-    def printSelectedRows(self):
-        selected_rows = self.studentInfoTable.selectionModel().selectedRows()
-        for row in selected_rows:
-            row_data = [
-            self.studentInfoTable.item(row.row(), col).text()
-            for col in range(self.studentInfoTable.columnCount())
-            ]
-            print(row_data)
+    def keyPressEventHandler(self, event):
+        if event.key() == Qt.Key_Delete:
+            selected_rows = self.studentInfoTable.selectionModel().selectedRows()
+            for row in reversed(selected_rows): # Reverse to avoid index shifting
+                row_index = row.row()
+                # Data are stored in the history container, so we can delete them later
+                self.historyContainer.addHistory(History(
+                    action='delete',
+                    table='students',
+                    class_name=self.studentInfoTable.item(row_index, 0).text(),
+                    class_number=self.studentInfoTable.item(row_index, 1).text(),
+                    std_name=self.studentInfoTable.item(row_index, 2).text(),
+                    category=self.studentInfoTable.item(row_index, 3).text()
+                ))
+
+                # Remove the item from the table
+                self.studentInfoTable.removeRow(row_index)  # This method removes the row from the table, causing index shifting
+        elif event.key() == Qt.Key_S:
+            print(self.historyContainer)
+        else:
+            super().keyPressEvent(event)
 
     def setTableData(self, table: QTableWidget, horizontal_header, data):
         table.setColumnCount(len(horizontal_header))

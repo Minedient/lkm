@@ -26,6 +26,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QTableWidget" name="studentInfoTable">
+         <property name="editTriggers">
+          <set>QAbstractItemView::EditTrigger::DoubleClicked</set>
+         </property>
          <property name="selectionMode">
           <enum>QAbstractItemView::SelectionMode::MultiSelection</enum>
          </property>
@@ -50,6 +53,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QTableWidget" name="eventInfoTable">
+         <property name="editTriggers">
+          <set>QAbstractItemView::EditTrigger::DoubleClicked</set>
+         </property>
          <property name="selectionMode">
           <enum>QAbstractItemView::SelectionMode::MultiSelection</enum>
          </property>

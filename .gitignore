@@ -5,3 +5,5 @@ LSG_test_students.csv
 LKM.spec
 build/*
 dist/*
+src/__pycache__/*
+ui/__pycache__/*

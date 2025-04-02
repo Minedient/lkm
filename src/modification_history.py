@@ -17,6 +17,12 @@ class HistoryContainer:
     def clearHistory(self):
         self.history.clear()
 
+    def __str__(self):
+        string = "History:\n"
+        for entry in self.history:
+            string += str(entry) + "\n"
+        return string.strip()
+
 class History:
     """
     A class to store modification details.
