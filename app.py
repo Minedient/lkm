@@ -205,21 +205,36 @@ class DataEditDialog(QDialog, Ui_TableEditDialog):
         
     def keyPressEventHandler(self, event):
         if event.key() == Qt.Key_Delete:
-            selected_rows = self.studentInfoTable.selectionModel().selectedRows()
+
+            # Check which table is currently active
+            if self.studentInfoTable.isCurrentWidget():
+                table = self.studentInfoTable
+            elif self.eventInfoTable.isCurrentWidget():
+                table = self.eventInfoTable
+            else:
+                return
+
+            selected_rows = table.selectionModel().selectedRows()
             for row in reversed(selected_rows): # Reverse to avoid index shifting
                 row_index = row.row()
                 # Data are stored in the history container, so we can delete them later
-                self.historyContainer.addHistory(History(
-                    action='delete',
-                    table='students',
-                    class_name=self.studentInfoTable.item(row_index, 0).text(),
-                    class_number=self.studentInfoTable.item(row_index, 1).text(),
-                    std_name=self.studentInfoTable.item(row_index, 2).text(),
-                    category=self.studentInfoTable.item(row_index, 3).text()
-                ))
-
+                if table == self.studentInfoTable:
+                    self.historyContainer.addHistory(History(
+                        action='delete',
+                        table='students',
+                        class_name=table.item(row_index, 0).text(),
+                        class_number=table.item(row_index, 1).text(),
+                        std_name=table.item(row_index, 2).text(),
+                        category=table.item(row_index, 3).text()
+                    ))
+                elif table == self.eventInfoTable:
+                    self.historyContainer.addHistory(History(
+                        action='delete',
+                        table='events',
+                        event_name=table.item(row_index, 0).text()
+                    ))
                 # Remove the item from the table
-                self.studentInfoTable.removeRow(row_index)  # This method removes the row from the table, causing index shifting
+                table.removeRow(row_index)  # This method removes the row from the table, causing index shifting
         else:
             super().keyPressEvent(event)
 
