@@ -220,8 +220,6 @@ class DataEditDialog(QDialog, Ui_TableEditDialog):
 
                 # Remove the item from the table
                 self.studentInfoTable.removeRow(row_index)  # This method removes the row from the table, causing index shifting
-        elif event.key() == Qt.Key_S:
-            print(self.historyContainer)
         else:
             super().keyPressEvent(event)
 
