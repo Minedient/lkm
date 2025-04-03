@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'table_editDialogqFXuMW.ui'
+## Form generated from reading UI file 'table_editDialog.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.0
+## Created by: Qt User Interface Compiler version 6.8.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -80,7 +80,7 @@ class Ui_TableEditDialog(object):
         self.buttonBox.accepted.connect(TableEditDialog.accept)
         self.buttonBox.rejected.connect(TableEditDialog.reject)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(TableEditDialog)
